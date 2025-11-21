@@ -14,6 +14,7 @@
         this.options = options || {};
         this.container = null;
         this.initialized = false;
+        this.widgetId = 'jsm-widget-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
         
         // Default options
         this.defaults = {
@@ -64,7 +65,7 @@
         html += '<p>' + this._escapeHtml(this.config.message) + '</p>';
         
         if (this.config.showButton) {
-            html += '<button class="jsm-widget-button" id="jsm-widget-btn">';
+            html += '<button class="jsm-widget-button" id="' + this.widgetId + '-btn">';
             html += this._escapeHtml(this.config.buttonText);
             html += '</button>';
         }
@@ -80,7 +81,7 @@
      */
     JSMWidget.prototype.attachEvents = function() {
         if (this.config.showButton) {
-            var button = document.getElementById('jsm-widget-btn');
+            var button = document.getElementById(this.widgetId + '-btn');
             if (button) {
                 button.addEventListener('click', this._handleButtonClick.bind(this));
             }
@@ -108,8 +109,43 @@
      */
     JSMWidget.prototype.updateMessage = function(message) {
         this.config.message = message;
-        this.render();
-        this.attachEvents();
+        
+        // Find and update the message element directly for better performance
+        if (this.container) {
+            var messageElement = this.container.querySelector('.jsm-widget-body p');
+            if (messageElement) {
+                messageElement.textContent = this._escapeHtml(message);
+            } else {
+                // Fallback to full re-render if element not found
+                this.render();
+                this.attachEvents();
+            }
+        }
+    };
+
+    /**
+     * Set widget theme
+     * @param {String} theme - Theme name ('light' or 'dark')
+     */
+    JSMWidget.prototype.setTheme = function(theme) {
+        if (theme !== 'light' && theme !== 'dark') {
+            console.warn('Invalid theme. Use "light" or "dark".');
+            return;
+        }
+        
+        this.config.theme = theme;
+        
+        // Update theme class on wrapper element
+        if (this.container) {
+            var wrapper = this.container.querySelector('.jsm-widget-wrapper');
+            if (wrapper) {
+                wrapper.className = 'jsm-widget-wrapper ' + theme;
+            } else {
+                // Fallback to full re-render if wrapper not found
+                this.render();
+                this.attachEvents();
+            }
+        }
     };
 
     /**

@@ -57,6 +57,7 @@ Open `index.html` in your browser to see the widget in action.
 
 - `init()`: Initialize the widget
 - `updateMessage(message)`: Update the widget message
+- `setTheme(theme)`: Change widget theme ('light' or 'dark')
 - `destroy()`: Remove the widget from DOM
 - `onButtonClick()`: Custom callback for button clicks
 

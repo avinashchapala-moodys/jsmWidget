@@ -69,12 +69,10 @@
         // Demo control functions
         function toggleTheme() {
             if (widget.config.theme === 'light') {
-                widget.config.theme = 'dark';
+                widget.setTheme('dark');
             } else {
-                widget.config.theme = 'light';
+                widget.setTheme('light');
             }
-            widget.render();
-            widget.attachEvents();
         }
 
         function updateMessage() {
