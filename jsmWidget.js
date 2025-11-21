@@ -114,7 +114,7 @@
         if (this.container) {
             var messageElement = this.container.querySelector('.jsm-widget-body p');
             if (messageElement) {
-                messageElement.textContent = this._escapeHtml(message);
+                messageElement.textContent = message;
             } else {
                 // Fallback to full re-render if element not found
                 this.render();

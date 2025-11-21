@@ -77,11 +77,11 @@
     transform: translateY(1px);
 }
 
-.dark .jsm-widget-button {
+.jsm-widget-wrapper.dark .jsm-widget-button {
     background-color: #3498db;
 }
 
-.dark .jsm-widget-button:hover {
+.jsm-widget-wrapper.dark .jsm-widget-button:hover {
     background-color: #2980b9;
 }
 

@@ -19,9 +19,9 @@
         <!-- Demo Controls -->
         <div class="demo-controls">
             <h3>Widget Controls</h3>
-            <button onclick="toggleTheme()">Toggle Theme</button>
-            <button onclick="updateMessage()">Update Message</button>
-            <button onclick="reinitializeWidget()">Reinitialize</button>
+            <button id="toggle-theme-btn">Toggle Theme</button>
+            <button id="update-message-btn">Update Message</button>
+            <button id="reinitialize-btn">Reinitialize</button>
         </div>
 
         <!-- Second Widget Example -->
@@ -66,16 +66,16 @@
 
         widget2.init();
 
-        // Demo control functions
-        function toggleTheme() {
+        // Attach event listeners to demo control buttons
+        document.getElementById('toggle-theme-btn').addEventListener('click', function() {
             if (widget.config.theme === 'light') {
                 widget.setTheme('dark');
             } else {
                 widget.setTheme('light');
             }
-        }
+        });
 
-        function updateMessage() {
+        document.getElementById('update-message-btn').addEventListener('click', function() {
             var messages = [
                 'Widget message updated!',
                 'Hello from JSM Widget!',
@@ -85,13 +85,13 @@
             ];
             var randomMessage = messages[Math.floor(Math.random() * messages.length)];
             widget.updateMessage(randomMessage);
-        }
+        });
 
-        function reinitializeWidget() {
+        document.getElementById('reinitialize-btn').addEventListener('click', function() {
             widget.destroy();
             widget.init();
             alert('Widget reinitialized!');
-        }
+        });
     </script>
 </body>
 </html>
