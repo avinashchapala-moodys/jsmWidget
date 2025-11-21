@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSM Widget Demo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>JSM Widget Demo</h1>
+            <p>A simple, customizable JavaScript widget for your web applications</p>
+        </div>
+
+        <!-- Widget Container -->
+        <div id="jsm-widget"></div>
+
+        <!-- Demo Controls -->
+        <div class="demo-controls">
+            <h3>Widget Controls</h3>
+            <button onclick="toggleTheme()">Toggle Theme</button>
+            <button onclick="updateMessage()">Update Message</button>
+            <button onclick="reinitializeWidget()">Reinitialize</button>
+        </div>
+
+        <!-- Second Widget Example -->
+        <div style="margin-top: 40px;">
+            <h3 style="text-align: center; color: #333;">Another Widget Instance</h3>
+            <div id="jsm-widget-2"></div>
+        </div>
+    </div>
+
+    <!-- Include the JSM Widget script -->
+    <script src="jsmWidget.js"></script>
+
+    <!-- Initialize and demo the widget -->
+    <script>
+        // Initialize first widget
+        var widget = new JSMWidget({
+            containerId: 'jsm-widget',
+            title: 'Hello World',
+            message: 'This is a customizable JavaScript widget!',
+            theme: 'light',
+            showButton: true,
+            buttonText: 'Click Me'
+        });
+
+        widget.init();
+
+        // Custom button click handler
+        widget.onButtonClick = function() {
+            alert('Custom action: Widget button was clicked!');
+            this.updateMessage('Button was clicked at: ' + new Date().toLocaleTimeString());
+        };
+
+        // Initialize second widget with dark theme
+        var widget2 = new JSMWidget({
+            containerId: 'jsm-widget-2',
+            title: 'Dark Theme Widget',
+            message: 'This widget uses a dark theme!',
+            theme: 'dark',
+            showButton: true,
+            buttonText: 'Dark Mode Button'
+        });
+
+        widget2.init();
+
+        // Demo control functions
+        function toggleTheme() {
+            if (widget.config.theme === 'light') {
+                widget.config.theme = 'dark';
+            } else {
+                widget.config.theme = 'light';
+            }
+            widget.render();
+            widget.attachEvents();
+        }
+
+        function updateMessage() {
+            var messages = [
+                'Widget message updated!',
+                'Hello from JSM Widget!',
+                'This is a new message!',
+                'Widget is working perfectly!',
+                'JavaScript widgets are awesome!'
+            ];
+            var randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            widget.updateMessage(randomMessage);
+        }
+
+        function reinitializeWidget() {
+            widget.destroy();
+            widget.init();
+            alert('Widget reinitialized!');
+        }
+    </script>
+</body>
+</html>
